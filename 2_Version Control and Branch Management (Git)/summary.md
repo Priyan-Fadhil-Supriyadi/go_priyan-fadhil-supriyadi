@@ -7,6 +7,7 @@
 ### Task
 1. membuat repository github. Saya mendaftar github menggunakan email yang terdaftar pada kampus merdeka. 
 <img src="screenshots/ss soal 01.PNG">
+
 2. saya mengimplementasikan branching dengan menggunakan perintah `git branch nama_branch` dimana nama_branch diganti dengan development, featureA, featureB. kemudian melakukan push pada github dengan perintah `git push -u origin nama_branch`
 3. saya mengimplementasikan git push dengan melakukan perintah `git add .` terlebih dahulu pada git bash, kemudian lakukan `git commit -m "komentar tentang yang telah dilakukan"` terakhir adalah dengan melakukan perintah `git push origin master/main`. lalu git pull dengan cara pindah terlebih dahulu ke branch development untuk kemudian melakukan perintah `git pull origin main`. kemudian git stash dengan menggunakan fitur yang ada pada vs code pada source control, jadi seteah melakukan commit terakhir saya menambahkan beberapa code untuk kemudian di stash, lalu apabila code tersebut dibutuhkan saya bisa melakukan pop stash dengan nama stash yang telah dibuat. lalu melakukan merge dengan cara pindah terlebih dahulu pada featureA untuk kemudian melakukan perintah `git merge featureA development` dengan cara yang sama merge feature b.
 4. setelah melakukan beberapa perubahan pada featureA dan featureB saya mencoba untuk melakukan merge ketika berada di branch development dengan melakukan perintah `git merge development featureA` dan melakukan cara yang sana untuk featureB. Hasilnya terjadi konflik dan saya mengatasinya dengan cara `accept both change`
