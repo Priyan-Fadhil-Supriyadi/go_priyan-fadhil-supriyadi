@@ -2,13 +2,15 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func primeNumber(number int) bool {
 
-	log := (number / 2)
-	for i := 2; i < log; i++ {
-		if number%i == 0 {
+	log := math.Sqrt(float64(number))
+	for i := 2.0; i < log; i++ {
+		n := int(i)
+		if number%n == 0 {
 			return false
 		}
 	}
