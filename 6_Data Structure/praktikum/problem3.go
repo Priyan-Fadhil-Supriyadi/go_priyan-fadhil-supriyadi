@@ -2,43 +2,24 @@ package main
 
 import "fmt"
 
-func ArrayMerge(arrayA, ArrayB []string) []string {
-	arrayC := arrayA
-
-	for i := 0; i < len(ArrayB); i++ {
-		arrayC = append(arrayC, ArrayB[i])
-	}
-	sisa := []string{}
-	visited := map[string]bool{}
-	for i := len(arrayC) - 1; i >= 0; i-- {
-		n := arrayC[i]
-		if visited[n] {
-			continue
+func PairSum(arr []int, target int) []int {
+	indeks := []int{}
+	for i := 0; i < len(arr); i++ {
+		for j := i + 1; j < len(arr); j++ {
+			sum := arr[i] + arr[j]
+			if sum == target {
+				indeks = append(indeks, i)
+				indeks = append(indeks, j)
+			}
 		}
-
-		visited[n] = true
-		sisa = append([]string{n}, sisa...)
 	}
-	return sisa
-
+	return indeks
 }
 
 func main() {
-	// Test cases
-	fmt.Println(ArrayMerge([]string{"king", "devil jin", "akuma"}, []string{"eddie", "steve", "geese"}))
-	// ["king", "devil jin", "akuma", "eddie", "steve", "geese"]
-
-	fmt.Println(ArrayMerge([]string{"sergei", "jin"}, []string{"jin", "steve", "bryan"}))
-	// ["sergei", "jin", "steve", "bryan"]
-
-	fmt.Println(ArrayMerge([]string{"alisa", "yoshimitsu"}, []string{"devil jin", "yoshimitsu", "alisa", "law"}))
-	// ["alisa", "yoshimitsu", "devil jin", "law"]
-
-	fmt.Println(ArrayMerge([]string{}, []string{"devil jin", "sergei"}))
-	// ["devil jin", "sergei"]
-
-	fmt.Println(ArrayMerge([]string{"hwoarang"}, []string{}))
-	// ["hwoarang"]
-
-	fmt.Println(ArrayMerge([]string{}, []string{}))
+	fmt.Println(PairSum([]int{1, 2, 3, 4, 6}, 6)) // [1, 3]
+	fmt.Println(PairSum([]int{2, 5, 9, 11}, 11))  // [0, 2]
+	fmt.Println(PairSum([]int{1, 3, 5, 7}, 12))   // [2, 3]
+	fmt.Println(PairSum([]int{1, 4, 6, 8}, 10))   // [1, 2]
+	fmt.Println(PairSum([]int{1, 5, 6, 7}, 6))    // [0, 1]
 }
