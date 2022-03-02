@@ -20,7 +20,6 @@ func ArrayMerge(arrayA, ArrayB []string) []string {
 		sisa = append(sisa, arrayC[i])
 	}
 	return sisa
-
 }
 
 func main() {
