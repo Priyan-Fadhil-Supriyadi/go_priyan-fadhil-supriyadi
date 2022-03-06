@@ -9,39 +9,44 @@ type pair struct {
 	count int
 }
 
+func (v pair) String() string {
+	return fmt.Sprintf("%s->%d", v.name, v.count)
+}
+
 func MostAppearItem(items []string) []pair {
-	// your code here
-	var num int = 0
-	a := make([]pair, 0, len(items))
-	//b := pair{a[:]}
-	//b := make([]pair, 0, len(items))
-	//duplicate_frequency := make(map[string]int)
+	maps := make(map[string]int)
 
-	visited := map[string]bool{}
-	for i := 0; i < len(items); i++ {
-		n := items[i]
-		//fmt.Println(a)
-		if visited[n] {
-			if a[i].name == n {
-				a = append(a, pair{items[i], num})
+	sort := func(data []pair) []pair {
+		for i := 0; i < len(data)-1; i++ {
+			idx := i
+			for j := i + 1; j < len(data); j++ {
+				if data[idx].count > data[j].count {
+					idx = j
+				}
 			}
-			num += 1
-
-			continue
+			data[idx], data[i] = data[i], data[idx]
 		}
-
-		a = append(a, pair{items[i], num})
-		visited[n] = true
+		return data
 	}
-	fmt.Println(a[1].name)
-	return a
+
+	for i := 0; i < len(items); i++ {
+		maps[items[i]]++
+	}
+
+	var pr []pair
+	var temp pair
+	for key, value := range maps {
+		temp.name = key
+		temp.count = value
+		pr = append(pr, temp)
+	}
+	pr = sort(pr)
+
+	return pr
 }
 
 func main() {
 	fmt.Println(MostAppearItem([]string{"js", "js", "golang", "ruby", "ruby", "js", "js"}))
-	// golang->1 ruby->2 js->4
-	// fmt.Println(MostAppearItem([]string{"A", "B", "B", "C", "A", "A", "B", "A", "D", "D"}))
-	// // C->1 D->2 B->3 A->4
-	// fmt.Println(MostAppearItem([]string{"football", "basketball", "tenis"}))
-	// // football->1 basketball->1 tenis->1
+	fmt.Println(MostAppearItem([]string{"A", "B", "B", "C", "A", "A", "B", "A", "D", "D"}))
+	fmt.Println(MostAppearItem([]string{"football", "basketball", "tenis"}))
 }
