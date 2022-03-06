@@ -26,4 +26,5 @@
 7. saya melakukan nested looping sehingga program menjadi seperti berikut
 <img src="screenshots/SS problem 7.PNG">
 
-8. program belum selesai
+8. saya mendeklarasikan maps untuk mengisinya dengan items untuk kemudian dilakukan looping dan memasukkan nilai maps tersebut kedalam masing masing variable yang telah ada pada struct pair untuk kemudian dilakukan sorting dan penghitungan jumlah kata yang ada. sehingga program menjadi seperti berikut
+<img src="screenshots/SS problem 8.PNG">
