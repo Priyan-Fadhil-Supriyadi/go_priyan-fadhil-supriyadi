@@ -4,7 +4,6 @@ import "fmt"
 
 func SimpleEquations(a, b, c int) {
 	// your code here
-	//var x, y, z = 1, 1, 1
 	var x, y, z int
 	for x = 1; a-(x+y+z) >= 0 || b-(x*y*z) >= 0 || c-(x*x+y*y+z*z) >= 0; x++ {
 		for y = 1; a-(x+y+z) >= 0 || b-(x*y*z) >= 0 || c-(x*x+y*y+z*z) >= 0; y++ {
