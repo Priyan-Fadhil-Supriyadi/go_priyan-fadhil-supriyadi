@@ -8,3 +8,5 @@
 
 1. untuk menghitung frekuensi huruf dalam teks menggunakan perhitungan pararel, saya membuat 2 function dan 1 function anonymous yang dijalankan dengan goroutine, pada function hitung saya melakukan pembagian kata terlebih dahulu agar nantinya kata tersebut dapat dihitung untuk dilempar ke function frekuensi secara bersamaan, kemudian saya melakukan perhitungan hasil dari return function frekuensi untuk kemudian dilakukan output pada function hitung berupa huruf dengan berapa kali kemunculannya dalam string inputan. sehingga program akan menjadi seperti berikut.
 <img src="screenshots/SS problem 1.PNG">
+
+2. ini percobaan pull request
