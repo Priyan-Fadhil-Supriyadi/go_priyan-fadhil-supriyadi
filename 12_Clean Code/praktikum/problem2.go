@@ -15,11 +15,11 @@ func (k *Kendaraan) akselerasi(pertambahan int) {
 }
 
 func main() {
-	mobilcepat := Kendaraan{}
-	mobilcepat.berjalan()
-	mobilcepat.berjalan()
-	mobilcepat.berjalan()
+	mobilCepat := Kendaraan{}
+	mobilCepat.berjalan()
+	mobilCepat.berjalan()
+	mobilCepat.berjalan()
 
-	mobillamban := Kendaraan{}
-	mobillamban.berjalan()
+	mobilLamban := Kendaraan{}
+	mobilLamban.berjalan()
 }
