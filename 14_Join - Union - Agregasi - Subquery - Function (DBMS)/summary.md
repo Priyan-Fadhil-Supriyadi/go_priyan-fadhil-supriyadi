@@ -11,4 +11,5 @@
 2. pada materi ini saya menerapkan pelajaran join, subquery, agregate, function yang semua hasilnya telah saya masukkan pada folder praktikum
 
 sehingga hasil akhirnya menjadi seperti berikut
+<br><br>
 <img src="screenshots/hasil akhir database setelah praktikum section 14.PNG">
