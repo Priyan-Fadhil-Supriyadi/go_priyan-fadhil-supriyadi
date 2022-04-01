@@ -2,7 +2,7 @@ package config
 
 import (
 	"fmt"
-	"part2/model"
+	"praktikum/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

@@ -1,7 +1,8 @@
 package route
 
 import (
-	"part2/controller"
+	"praktikum/controller"
+	m "praktikum/middleware"
 
 	"github.com/labstack/echo/v4"
 )
@@ -10,6 +11,7 @@ import (
 func New() *echo.Echo {
 	e := echo.New()
 	// Route / to handler function
+	m.LogMiddleware(e)
 	e.GET("/users", controller.GetUsersController)
 	e.GET("/users/:id", controller.GetUserController)
 	e.POST("/users", controller.CreateUserController)
