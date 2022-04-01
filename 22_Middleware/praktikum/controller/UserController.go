@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 	"praktikum/config"
+	"praktikum/middleware"
 	"praktikum/model"
 	"strconv"
 
@@ -32,7 +33,7 @@ func GetUserController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	if user.ID == 0 {
-		return c.JSON(http.StatusOK, map[string]interface{}{
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": "invalid id",
 		})
 	}
@@ -65,7 +66,7 @@ func DeleteUserController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	if user.ID == 0 {
-		return c.JSON(http.StatusOK, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"messages": "invalid id",
 		})
 	}
@@ -84,7 +85,7 @@ func UpdateUserController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	if user.ID == 0 {
-		return c.JSON(http.StatusOK, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"messages": "invalid id",
 		})
 	}
@@ -95,5 +96,31 @@ func UpdateUserController(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success update user",
 		"user":    user,
+	})
+}
+
+func LoginUserController(c echo.Context) error {
+	var user model.User
+	c.Bind(&user)
+	if err := config.DB.Where("email = ? AND password = ?", user.Email, user.Password).First(&user).Error; err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "fail login",
+			"error":   err.Error(),
+		})
+	}
+
+	token, err := middleware.CreateToken(int(user.ID))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "invalid token",
+			"error":   err.Error(),
+		})
+	}
+
+	userResponse := model.UserResponse{user.ID, user.Name, user.Email, token}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "succes login",
+		"user":    userResponse,
 	})
 }
