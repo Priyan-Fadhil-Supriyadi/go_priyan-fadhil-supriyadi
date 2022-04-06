@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"praktikum/config"
-	"praktikum/model"
+	"part2/config"
+	"part2/model"
 
 	"github.com/labstack/echo/v4"
 )

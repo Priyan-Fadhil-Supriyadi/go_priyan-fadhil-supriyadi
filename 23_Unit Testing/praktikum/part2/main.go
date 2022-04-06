@@ -1,8 +1,8 @@
 package main
 
 import (
-	"praktikum/config"
-	"praktikum/route"
+	"part2/config"
+	"part2/route"
 )
 
 func main() {

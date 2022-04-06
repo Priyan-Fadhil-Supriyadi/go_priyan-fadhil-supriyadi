@@ -2,9 +2,9 @@ package controller
 
 import (
 	"net/http"
-	"praktikum/config"
-	"praktikum/middleware"
-	"praktikum/model"
+	"part2/config"
+	"part2/middleware"
+	"part2/model"
 	"strconv"
 
 	"github.com/labstack/echo/v4"

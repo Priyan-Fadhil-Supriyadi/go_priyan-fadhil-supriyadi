@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"praktikum/constants"
+	"part2/constants"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"

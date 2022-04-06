@@ -1,9 +1,9 @@
 package route
 
 import (
-	"praktikum/constants"
-	"praktikum/controller"
-	m "praktikum/middleware"
+	"part2/constants"
+	"part2/controller"
+	m "part2/middleware"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
