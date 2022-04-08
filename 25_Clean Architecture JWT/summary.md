@@ -1,0 +1,5 @@
+## (25) Clean Architecture JWT
+
+1. Clean Architecture JWT artinya kita membuatkan senuah proses auth ketika client melakukan request seperti sebuah pagar yang mana akan dilakukan cek terlebih dahulu apakah client berhak untuk melakukan request ke API yang dibuat atau tidak, semuanya dilakukan oleh JWT. logic pemeriksaan akun pengguna sebelum mendapatkan token dilakukan pada usecase
+2. layer usecase merupakan layer yang akan bertugas sebagai pengontrol, yakni menangangi business logic pada setiap domain. Layer ini juga bertugas memilih repository apa yang akan digunakan, dan domain ini bisa memiliki lebih dari satu repository layer. Tugas utama terbesar dari layer ini, yaitu menjadi penghubung antara datastore (repository layer) dengan delivery layer.
+3. layer repository merupakan layer yang menyimpan database handler. Querying, Inserting, Deleting akan dilakukan pada layer ini. Tidak ada business logic disini. Yang ada hanya fungsi standard untuk input-output dari datastore.
