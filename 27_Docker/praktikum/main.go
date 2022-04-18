@@ -3,9 +3,15 @@ package main
 import (
 	"github.com/labstack/echo/v4"
 
+<<<<<<< HEAD
 	conf "github.com/bimbimprasetyoafif/km/config"
 	c "github.com/bimbimprasetyoafif/km/controller"
 	db "github.com/bimbimprasetyoafif/km/database"
+=======
+	conf "praktikum/config"
+	c "praktikum/controller"
+	db "praktikum/database"
+>>>>>>> 2bbdc36abb92c50f1f5e872d14d94c34757f4f37
 )
 
 func init() {
@@ -20,6 +26,7 @@ func main() {
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
+<<<<<<< HEAD
 
 
 
@@ -117,3 +124,5 @@ main.go
 
 
 */
+=======
+>>>>>>> 2bbdc36abb92c50f1f5e872d14d94c34757f4f37

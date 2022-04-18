@@ -3,8 +3,13 @@ package repository
 import (
 	"fmt"
 
+<<<<<<< HEAD
 	"github.com/bimbimprasetyoafif/km/database"
 	"github.com/bimbimprasetyoafif/km/model"
+=======
+	"praktikum/database"
+	"praktikum/model"
+>>>>>>> 2bbdc36abb92c50f1f5e872d14d94c34757f4f37
 )
 
 func CreateUsers(user model.User) error {

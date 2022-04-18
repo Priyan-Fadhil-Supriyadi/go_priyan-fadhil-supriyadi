@@ -4,8 +4,13 @@ import (
 	"net/http"
 	"strconv"
 
+<<<<<<< HEAD
 	"github.com/bimbimprasetyoafif/km/model"
 	"github.com/bimbimprasetyoafif/km/repository"
+=======
+	"praktikum/model"
+	"praktikum/repository"
+>>>>>>> 2bbdc36abb92c50f1f5e872d14d94c34757f4f37
 	"github.com/labstack/echo/v4"
 )
 

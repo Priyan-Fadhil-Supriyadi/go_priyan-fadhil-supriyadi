@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 module github.com/bimbimprasetyoafif/km
+=======
+module praktikum
+>>>>>>> 2bbdc36abb92c50f1f5e872d14d94c34757f4f37
 
 go 1.17
 

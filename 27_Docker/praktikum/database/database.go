@@ -2,8 +2,13 @@ package database
 
 import (
 	"fmt"
+<<<<<<< HEAD
 	"github.com/bimbimprasetyoafif/km/config"
 	"github.com/bimbimprasetyoafif/km/model"
+=======
+	"praktikum/config"
+	"praktikum/model"
+>>>>>>> 2bbdc36abb92c50f1f5e872d14d94c34757f4f37
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
