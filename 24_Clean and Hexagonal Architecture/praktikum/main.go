@@ -1,25 +1,17 @@
 package main
 
 import (
-	"praktikum/config"
-	"praktikum/controller"
-
 	"github.com/labstack/echo/v4"
+
+	conf "github.com/Priyan-Fadhil-Supriyadi/mini-project/config"
+	rest "github.com/Priyan-Fadhil-Supriyadi/mini-project/controller"
 )
 
 func main() {
-	db, err := config.ConnectDB()
-	if err != nil {
-		panic(err)
-	}
+	config := conf.InitConfiguration()
+	e := echo.New()
 
-	err = config.MigrateDB(db)
-	if err != nil {
-		panic(err)
-	}
+	rest.RegisterUserGroupAPI(e, config)
 
-	app := echo.New()
-	app.GET("/users", controller.GetAllUsers(db))
-	app.POST("/users", controller.CreateUser(db))
-	app.Start(":8080")
+	e.Logger.Fatal(e.Start(":8080"))
 }
