@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/labstack/echo/v4"
 
-	conf "github.com/Priyan-Fadhil-Supriyadi/mini-project/config"
-	rest "github.com/Priyan-Fadhil-Supriyadi/mini-project/controller"
+	conf "praktikum/config"
+	rest "praktikum/controller"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/Priyan-Fadhil-Supriyadi/mini-project
+module praktikum
 
 go 1.17
 
