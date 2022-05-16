@@ -28,7 +28,7 @@ func (r *userRepositoryMysqlLayer) GetAllUsers() []model.User {
 	return users
 }
 
-func (r *userRepositoryMysqlLayer) GetOneUserByID(id int) (user model.User, err error) {
+func (r *userRepositoryMysqlLayer) GetOneByIDUsers(id int) (user model.User, err error) {
 	res := r.DB.Where("id = ?", id).Find(&user)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("not found")
@@ -37,16 +37,16 @@ func (r *userRepositoryMysqlLayer) GetOneUserByID(id int) (user model.User, err 
 	return
 }
 
-func (r *userRepositoryMysqlLayer) GetOneUserByEmail(email string) (user model.User, err error) {
+func (r *userRepositoryMysqlLayer) GetOneByEmailUsers(email string) (user model.User, err error) {
 	res := r.DB.Where("email = ?", email).Find(&user)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("not found")
 	}
 
-	return user, err
+	return
 }
 
-func (r *userRepositoryMysqlLayer) UpdateOneUserByID(id int, user model.User) error {
+func (r *userRepositoryMysqlLayer) UpdateOneByIDUsers(id int, user model.User) error {
 	res := r.DB.Where("id = ?", id).UpdateColumns(&user)
 	if res.RowsAffected < 1 {
 		return fmt.Errorf("error update")
@@ -55,7 +55,7 @@ func (r *userRepositoryMysqlLayer) UpdateOneUserByID(id int, user model.User) er
 	return nil
 }
 
-func (r *userRepositoryMysqlLayer) DeleteUserByID(id int) error {
+func (r *userRepositoryMysqlLayer) DeleteByIDUsers(id int) error {
 	res := r.DB.Delete(&model.User{
 		ID: id,
 	})

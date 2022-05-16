@@ -11,15 +11,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type EchoController struct {
-	svc domain.AdapterUserService
+type RentController struct {
+	svc domain.AdapterRentService
 }
 
-func (ce *EchoController) CreateUserController(c echo.Context) error {
-	user := model.User{}
-	c.Bind(&user)
+func (ce *RentController) CreateRentController(c echo.Context) error {
+	rent := model.Rent{}
+	c.Bind(&rent)
 
-	err := ce.svc.CreateUserService(user)
+	err := ce.svc.CreateRentService(rent)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": err.Error(),
@@ -28,21 +28,21 @@ func (ce *EchoController) CreateUserController(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"messages": "success",
-		"users":    user,
+		"rents":    rent,
 	})
 }
 
-func (ce *EchoController) UpdateUserController(c echo.Context) error {
+func (ce *RentController) UpdateRentController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	user := model.User{}
-	c.Bind(&user)
+	rent := model.Rent{}
+	c.Bind(&rent)
 
-	bearer := c.Get("user").(*jwt.Token)
+	bearer := c.Get("rent").(*jwt.Token)
 	claim := bearer.Claims.(jwt.MapClaims)
 
-	err := ce.svc.UpdateUserService(intID, int(claim["id"].(float64)), user)
+	err := ce.svc.UpdateRentService(intID, int(claim["id"].(float64)), rent)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no change or unauthorization",
@@ -56,11 +56,11 @@ func (ce *EchoController) UpdateUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) DeleteUserController(c echo.Context) error {
+func (ce *RentController) DeleteRentController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	err := ce.svc.DeleteUserByID(intID)
+	err := ce.svc.DeleteRentByID(intID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no delete",
@@ -72,7 +72,7 @@ func (ce *EchoController) DeleteUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) GetUserController(c echo.Context) error {
+func (ce *RentController) GetRentController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
 	intID, err := strconv.Atoi(id)
@@ -80,7 +80,7 @@ func (ce *EchoController) GetUserController(c echo.Context) error {
 
 	}
 
-	res, err := ce.svc.GetUserByID(intID)
+	res, err := ce.svc.GetRentByID(intID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no delete",
@@ -89,39 +89,15 @@ func (ce *EchoController) GetUserController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success",
-		"users":    res,
+		"rents":    res,
 	})
 }
 
-func (ce *EchoController) GetUsersController(c echo.Context) error {
-	users := ce.svc.GetAllUsersService()
+func (ce *RentController) GetRentsController(c echo.Context) error {
+	rents := ce.svc.GetAllRentService()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages": "success",
-		"users":    users,
-	}, "  ")
-}
-
-func (ce *EchoController) LoginUserController(c echo.Context) error {
-	userLogin := make(map[string]interface{})
-
-	c.Bind(&userLogin)
-
-	token, statusCode := ce.svc.LoginUser(userLogin["email"].(string), userLogin["password"].(string))
-	switch statusCode {
-	case http.StatusUnauthorized:
-		return c.JSONPretty(http.StatusUnauthorized, map[string]interface{}{
-			"messages": "email atau password salah",
-		}, "  ")
-
-	case http.StatusInternalServerError:
-		return c.JSONPretty(http.StatusInternalServerError, map[string]interface{}{
-			"messages": "internal",
-		}, "  ")
-	}
-
-	return c.JSONPretty(http.StatusOK, map[string]interface{}{
-		"messages": "success",
-		"token":    token,
+		"rents":    rents,
 	}, "  ")
 }

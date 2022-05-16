@@ -11,15 +11,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type EchoController struct {
-	svc domain.AdapterUserService
+type DepotController struct {
+	svc domain.AdapterDepotService
 }
 
-func (ce *EchoController) CreateUserController(c echo.Context) error {
-	user := model.User{}
-	c.Bind(&user)
+func (ce *DepotController) CreateDepotController(c echo.Context) error {
+	depot := model.Depot{}
+	c.Bind(&depot)
 
-	err := ce.svc.CreateUserService(user)
+	err := ce.svc.CreateDepotService(depot)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"messages": err.Error(),
@@ -28,21 +28,21 @@ func (ce *EchoController) CreateUserController(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"messages": "success",
-		"users":    user,
+		"depots":   depot,
 	})
 }
 
-func (ce *EchoController) UpdateUserController(c echo.Context) error {
+func (ce *DepotController) UpdateDepotController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	user := model.User{}
-	c.Bind(&user)
+	depot := model.Depot{}
+	c.Bind(&depot)
 
-	bearer := c.Get("user").(*jwt.Token)
+	bearer := c.Get("depot").(*jwt.Token)
 	claim := bearer.Claims.(jwt.MapClaims)
 
-	err := ce.svc.UpdateUserService(intID, int(claim["id"].(float64)), user)
+	err := ce.svc.UpdateDepotService(intID, int(claim["id"].(float64)), depot)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no change or unauthorization",
@@ -56,11 +56,11 @@ func (ce *EchoController) UpdateUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) DeleteUserController(c echo.Context) error {
+func (ce *DepotController) DeleteDepotController(c echo.Context) error {
 	id := c.Param("id")
 	intID, _ := strconv.Atoi(id)
 
-	err := ce.svc.DeleteUserByID(intID)
+	err := ce.svc.DeleteDepotByID(intID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no delete",
@@ -72,7 +72,7 @@ func (ce *EchoController) DeleteUserController(c echo.Context) error {
 	})
 }
 
-func (ce *EchoController) GetUserController(c echo.Context) error {
+func (ce *DepotController) GetDepotController(c echo.Context) error {
 	fmt.Println("eksekusi handler")
 	id := c.Param("id")
 	intID, err := strconv.Atoi(id)
@@ -80,7 +80,7 @@ func (ce *EchoController) GetUserController(c echo.Context) error {
 
 	}
 
-	res, err := ce.svc.GetUserByID(intID)
+	res, err := ce.svc.GetDepotByID(intID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
 			"messages": "no id or no delete",
@@ -89,39 +89,15 @@ func (ce *EchoController) GetUserController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success",
-		"users":    res,
+		"depots":   res,
 	})
 }
 
-func (ce *EchoController) GetUsersController(c echo.Context) error {
-	users := ce.svc.GetAllUsersService()
+func (ce *DepotController) GetDepotsController(c echo.Context) error {
+	depots := ce.svc.GetAllDepotService()
 
 	return c.JSONPretty(http.StatusOK, map[string]interface{}{
 		"messages": "success",
-		"users":    users,
-	}, "  ")
-}
-
-func (ce *EchoController) LoginUserController(c echo.Context) error {
-	userLogin := make(map[string]interface{})
-
-	c.Bind(&userLogin)
-
-	token, statusCode := ce.svc.LoginUser(userLogin["email"].(string), userLogin["password"].(string))
-	switch statusCode {
-	case http.StatusUnauthorized:
-		return c.JSONPretty(http.StatusUnauthorized, map[string]interface{}{
-			"messages": "email atau password salah",
-		}, "  ")
-
-	case http.StatusInternalServerError:
-		return c.JSONPretty(http.StatusInternalServerError, map[string]interface{}{
-			"messages": "internal",
-		}, "  ")
-	}
-
-	return c.JSONPretty(http.StatusOK, map[string]interface{}{
-		"messages": "success",
-		"token":    token,
+		"depots":   depots,
 	}, "  ")
 }

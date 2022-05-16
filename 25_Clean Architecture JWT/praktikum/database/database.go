@@ -28,8 +28,5 @@ func InitDB(conf config.Config) *gorm.DB {
 
 	DB.AutoMigrate(&model.User{})
 	DB.AutoMigrate(&model.Car{})
-	DB.AutoMigrate(&model.Depot{})
-	DB.AutoMigrate(&model.Rent{})
-
 	return DB
 }

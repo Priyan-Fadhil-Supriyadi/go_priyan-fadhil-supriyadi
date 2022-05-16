@@ -7,6 +7,8 @@ import (
 	"github.com/Priyan-Fadhil-Supriyadi/mini-project/config"
 	"github.com/Priyan-Fadhil-Supriyadi/mini-project/database"
 
+	//m "github.com/Priyan-Fadhil-Supriyadi/mini-project/middleware"
+
 	"github.com/Priyan-Fadhil-Supriyadi/mini-project/repository"
 	"github.com/Priyan-Fadhil-Supriyadi/mini-project/service"
 )
@@ -94,88 +96,4 @@ func CarGroupAPI(e *echo.Echo, conf config.Config) {
 	))
 	apiCar.DELETE("/:id", cont.DeleteCarController, middleware.JWT([]byte(conf.JWT_KEY)))
 	apiCar.POST("", cont.CreateCarController, middleware.JWT([]byte(conf.JWT_KEY)))
-}
-
-func DepotGroupAPI(e *echo.Echo, conf config.Config) {
-
-	db := database.InitDB(conf)
-
-	repoDepot := repository.DepotMysqlRepository(db)
-
-	svcDepot := service.NewServiceDepot(repoDepot, conf)
-
-	cont := DepotController{
-		svc: svcDepot,
-	}
-
-	apiDepot := e.Group("/depots",
-		middleware.Logger(),
-		middleware.CORS(),
-		//m.APIKEYMiddleware,
-	)
-
-	apiDepot.GET("", cont.GetDepotsController, middleware.JWTWithConfig(
-		middleware.JWTConfig{
-			SigningKey: []byte(conf.JWT_KEY),
-			ErrorHandlerWithContext: func(err error, c echo.Context) error {
-				return c.JSONPretty(404, map[string]interface{}{
-					"messages": "token mu mungkin invalid",
-				}, "  ")
-			},
-			SuccessHandler: func(c echo.Context) {
-			},
-		},
-	))
-
-	// apiDepot.GET("", cont.GetDepotsController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiDepot.GET("/:id", cont.GetDepotController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiDepot.PUT("/:id", cont.UpdateDepotController, middleware.JWTWithConfig(
-		middleware.JWTConfig{
-			SigningKey: []byte(conf.JWT_KEY),
-		},
-	))
-	apiDepot.DELETE("/:id", cont.DeleteDepotController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiDepot.POST("", cont.CreateDepotController, middleware.JWT([]byte(conf.JWT_KEY)))
-}
-
-func RentGroupAPI(e *echo.Echo, conf config.Config) {
-
-	db := database.InitDB(conf)
-
-	repoRent := repository.RentMysqlRepository(db)
-
-	svcRent := service.NewServiceRent(repoRent, conf)
-
-	cont := RentController{
-		svc: svcRent,
-	}
-
-	apiRent := e.Group("/rents",
-		middleware.Logger(),
-		middleware.CORS(),
-		//m.APIKEYMiddleware,
-	)
-
-	apiRent.GET("", cont.GetRentsController, middleware.JWTWithConfig(
-		middleware.JWTConfig{
-			SigningKey: []byte(conf.JWT_KEY),
-			ErrorHandlerWithContext: func(err error, c echo.Context) error {
-				return c.JSONPretty(404, map[string]interface{}{
-					"messages": "token mu mungkin invalid",
-				}, "  ")
-			},
-			SuccessHandler: func(c echo.Context) {
-			},
-		},
-	))
-
-	// apiRent.GET("", cont.GetRentsController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiRent.GET("/:id", cont.GetRentController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiRent.PUT("/:id", cont.UpdateRentController, middleware.JWTWithConfig(
-		middleware.JWTConfig{
-			SigningKey: []byte(conf.JWT_KEY),
-		},
-	))
-	apiRent.DELETE("/:id", cont.DeleteRentController, middleware.JWT([]byte(conf.JWT_KEY)))
-	apiRent.POST("", cont.CreateRentController, middleware.JWT([]byte(conf.JWT_KEY)))
 }

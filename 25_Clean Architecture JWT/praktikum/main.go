@@ -13,8 +13,6 @@ func main() {
 
 	rest.UserGroupAPI(e, config)
 	rest.CarGroupAPI(e, config)
-	rest.DepotGroupAPI(e, config)
-	rest.RentGroupAPI(e, config)
 
-	e.Logger.Fatal(e.Start(config.SERVER_ADDRESS))
+	e.Logger.Fatal(e.Start(":8080"))
 }

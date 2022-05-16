@@ -12,16 +12,16 @@ import (
 	// "github.com/stretchr/testify/mock"
 )
 
-func TestCreateUserControllerAll(t *testing.T) {
-	svc := MockUserSvc{}
+func TestCreateRentControllerAll(t *testing.T) {
+	svc := MockRentSvc{}
 
-	svc.On("CreateUserService", mock.Anything).
+	svc.On("CreateRentService", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.On("CreateUserService", mock.Anything).
+	svc.On("CreateRentService", mock.Anything).
 		Return(nil).Once()
 
-	usrController := EchoController{
+	usrController := RentController{
 		svc: &svc,
 	}
 
@@ -32,7 +32,7 @@ func TestCreateUserControllerAll(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		usrController.CreateUserController(echoContext)
+		usrController.CreateRentController(echoContext)
 
 		assert.Equal(t, 500, w.Result().StatusCode)
 	})
@@ -43,22 +43,22 @@ func TestCreateUserControllerAll(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		usrController.CreateUserController(echoContext)
+		usrController.CreateRentController(echoContext)
 
 		assert.Equal(t, 201, w.Result().StatusCode)
 	})
 }
 
-func TestGetUsersControllerAll(t *testing.T) {
-	svc := MockUserSvc{}
+func TestGetRentsControllerAll(t *testing.T) {
+	svc := MockRentSvc{}
 
-	svc.On("GetAllUserService", mock.Anything).
+	svc.On("GetAllRentService", mock.Anything).
 		Return(errors.New("new")).Once()
 
-	svc.On("GetAllUserService", mock.Anything).
+	svc.On("GetAllRentService", mock.Anything).
 		Return(nil).Once()
 
-	usrController := EchoController{
+	usrController := RentController{
 		svc: &svc,
 	}
 
@@ -68,19 +68,19 @@ func TestGetUsersControllerAll(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		usrController.GetUsersController(echoContext)
+		usrController.GetRentsController(echoContext)
 
 		assert.Equal(t, 200, w.Result().StatusCode)
 	})
 }
 
-func TestDeleteUserControllerAll(t *testing.T) {
-	svc := MockUserSvc{}
+func TestDeleteRentControllerAll(t *testing.T) {
+	svc := MockRentSvc{}
 
-	svc.On("DeleteUserService", mock.Anything).
+	svc.On("DeleteRentService", mock.Anything).
 		Return(nil).Once()
 
-	usrController := EchoController{
+	usrController := RentController{
 		svc: &svc,
 	}
 
@@ -90,7 +90,7 @@ func TestDeleteUserControllerAll(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		usrController.DeleteUserController(echoContext)
+		usrController.DeleteRentController(echoContext)
 
 		assert.Equal(t, 204, w.Result().StatusCode)
 	})
