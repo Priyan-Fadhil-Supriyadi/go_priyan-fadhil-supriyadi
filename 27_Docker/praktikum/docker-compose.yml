@@ -1,0 +1,40 @@
+services:
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 8888:8888
+    environment:
+      - SERVER_ADDRESS=0.0.0.0:8888
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_NAME=carnet
+      - DB_PORT=3306
+      - DB_HOST=db
+
+  db:
+    image: bitnami/mysql
+
+    # selalu restart container ini, kecuali container nya di stop
+    restart: unless-stopped
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_DATABASE=carnet
+      - MYSQL_ROOT_PASSWORD=root
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysql",
+          "-u",
+          "root",
+          "-proot",
+          "-e",
+          "show schemas"
+        ]
+      timeout: 10s
