@@ -3,17 +3,17 @@ package repository
 import (
 	"fmt"
 
-<<<<<<< HEAD
-	"github.com/bimbimprasetyoafif/km/database"
-	"github.com/bimbimprasetyoafif/km/model"
-=======
-	"praktikum/database"
-	"praktikum/model"
->>>>>>> 2bbdc36abb92c50f1f5e872d14d94c34757f4f37
+	"github.com/Priyan-Fadhil-Supriyadi/mini-project/domain"
+	"github.com/Priyan-Fadhil-Supriyadi/mini-project/model"
+	"gorm.io/gorm"
 )
 
-func CreateUsers(user model.User) error {
-	res := database.DB.Create(&user)
+type userRepositoryMysqlLayer struct {
+	DB *gorm.DB
+}
+
+func (r *userRepositoryMysqlLayer) CreateUsers(user model.User) error {
+	res := r.DB.Create(&user)
 	if res.RowsAffected < 1 {
 		return fmt.Errorf("error insert")
 	}
@@ -21,15 +21,16 @@ func CreateUsers(user model.User) error {
 	return nil
 }
 
-func GetAll() []model.User {
+func (r *userRepositoryMysqlLayer) GetAllUsers() []model.User {
 	users := []model.User{}
-	database.DB.Find(&users)
+	r.DB.Find(&users)
+	//r.DB.Model(&model.User{}).Association("rents").Find(&users)
 
 	return users
 }
 
-func GetOneByID(id int) (user model.User, err error) {
-	res := database.DB.Where("id = ?", id).Find(&user)
+func (r *userRepositoryMysqlLayer) GetOneUserByID(id int) (user model.User, err error) {
+	res := r.DB.Where("id = ?", id).Find(&user)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("not found")
 	}
@@ -37,8 +38,17 @@ func GetOneByID(id int) (user model.User, err error) {
 	return
 }
 
-func UpdateOneByID(id int, user model.User) error {
-	res := database.DB.Where("id = ?", id).UpdateColumns(&user)
+func (r *userRepositoryMysqlLayer) GetOneUserByEmail(email string) (user model.User, err error) {
+	res := r.DB.Where("email = ?", email).Find(&user)
+	if res.RowsAffected < 1 {
+		err = fmt.Errorf("not found")
+	}
+
+	return user, err
+}
+
+func (r *userRepositoryMysqlLayer) UpdateOneUserByID(id int, user model.User) error {
+	res := r.DB.Where("id = ?", id).UpdateColumns(&user)
 	if res.RowsAffected < 1 {
 		return fmt.Errorf("error update")
 	}
@@ -46,8 +56,8 @@ func UpdateOneByID(id int, user model.User) error {
 	return nil
 }
 
-func DeleteByID(id int) error {
-	res := database.DB.Delete(&model.User{
+func (r *userRepositoryMysqlLayer) DeleteUserByID(id int) error {
+	res := r.DB.Delete(&model.User{
 		ID: id,
 	})
 
@@ -56,4 +66,10 @@ func DeleteByID(id int) error {
 	}
 
 	return nil
+}
+
+func UserMysqlRepository(db *gorm.DB) domain.AdapterUserRepository {
+	return &userRepositoryMysqlLayer{
+		DB: db,
+	}
 }
